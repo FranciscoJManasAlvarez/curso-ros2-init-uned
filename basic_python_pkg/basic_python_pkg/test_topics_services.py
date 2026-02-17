@@ -14,20 +14,20 @@ class CurseNode(Node):
         self.declare_parameter('example_param', 'value')
 
         # Publisher
-        self.publisher_example_ = self.create_publisher(String,'/topic_cpp', 10)
+        self.publisher_example_ = self.create_publisher(String,'topic_cpp', 10)
         qos_profile = QoSProfile(
             reliability=QoSReliabilityPolicy.RELIABLE,         # o BEST_EFFORT
             durability=QoSDurabilityPolicy.VOLATILE,           # o TRANSIENT_LOCAL
             history=QoSHistoryPolicy.KEEP_LAST,                # o KEEP_ALL
             depth=10                                            # tamaño del buffer
         )
-        self.publisher_msg_propio_ = self.create_publisher(Actuators,'/actuators', qos_profile)
+        self.publisher_msg_propio_ = self.create_publisher(Actuators,'actuators', qos_profile)
         
         # Subscription
-        self.sub_example = self.create_subscription(String, '/topic_py', self.example_callback, 10)
+        self.sub_example = self.create_subscription(String, 'topic_py', self.example_callback, 10)
         
         # Service 
-        self.srv_ = self.create_service(TestDelay, '/test_delay', self.testdelay_callback)
+        self.srv_ = self.create_service(TestDelay, 'test_delay', self.testdelay_callback)
 
         self.initialize()
     

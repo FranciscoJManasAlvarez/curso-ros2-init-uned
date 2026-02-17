@@ -16,7 +16,6 @@ from launch import LaunchDescription
 
 def get_ros2_nodes(context, *args):
     use_sim_time = LaunchConfiguration('use_sim_time', default=False)
-    # ExecuteProcess(cmd=['ros2', 'bag', 'record', '-a', '-o', e.strftime("%Y-%m-%d-%H-%M"), ], output='screen'),
     node_list = []
 
     file = LaunchConfiguration('config_file')

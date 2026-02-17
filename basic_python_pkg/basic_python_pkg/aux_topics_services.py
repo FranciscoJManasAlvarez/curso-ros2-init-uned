@@ -13,7 +13,7 @@ class CurseNode(Node):
         self.declare_parameter('example_param', 'value')
 
         # Publisher
-        self.publisher_example_ = self.create_publisher(String,'/status', 10)
+        self.publisher_example_ = self.create_publisher(String,'status', 10)
         
         # Subscription
         qos_profile = QoSProfile(
@@ -22,7 +22,7 @@ class CurseNode(Node):
             history=QoSHistoryPolicy.KEEP_LAST,                # o KEEP_ALL
             depth=10                                            # tamaño del buffer
         )
-        self.sub_example = self.create_subscription(Actuators, '/actuators', self.actuators_callback, qos_profile)
+        self.sub_example = self.create_subscription(Actuators, 'actuators', self.actuators_callback, qos_profile)
         
         self.client = self.create_client(TestDelay, '/test_delay')
         while not self.client.wait_for_service(timeout_sec=1.0):
@@ -46,6 +46,16 @@ class CurseNode(Node):
         self.get_logger().warn('%s' % data)
         self.i += 1
 
+    def multiarray_callback(self):
+        msg = Float64MultiArray()
+        msg.data = {data['posCtl.targetVX'], data['posCtl.targetVY'], data['controller.roll'], data['controller.pitch'], data['controller.yaw']}
+        msg.layout.data_offset = 0
+        msg.layout.dim.append(MultiArrayDimension())
+        msg.layout.dim[0].label = 'data'
+        msg.layout.dim[0].size = 5
+        msg.layout.dim[0].stride = 1
+        self.publisher_data_attitude.publish(msg)
+        
 def main(args=None):
     rclpy.init(args=args)
     basic_node = CurseNode()
