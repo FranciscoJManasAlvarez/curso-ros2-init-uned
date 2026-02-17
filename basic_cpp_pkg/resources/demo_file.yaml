@@ -1,0 +1,29 @@
+# Demo Launch config file
+Data_Logging: 
+  enable: False
+  all: False
+  name: date
+  topics: /ros2_cpu /actuators /status
+  
+Nodes:
+  node00: 
+    enable: True
+    executable: aux_topics_services
+    name: node00
+    pkg: basic_python_pkg
+    namespace: 'robot1'
+  
+  node01: 
+    enable: True
+    executable: test_topics_services
+    name: node01
+    pkg: basic_python_pkg
+    namespace: 'robot1'
+  
+  node02: 
+    enable: True
+    executable: aux_topics_services
+    name: node00
+    pkg: basic_python_pkg
+    namespace: 'robot2'
+
