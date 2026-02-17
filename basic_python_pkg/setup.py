@@ -26,6 +26,8 @@ setup(
         'console_scripts': [
             'basic_node = basic_python_pkg.basic_node:main',
             'demo_node = basic_python_pkg.demo_node:main',
+            'service_server = basic_python_pkg.service_server:main',
+            'service_client = basic_python_pkg.service_client:main',
             'test_topics_services = basic_python_pkg.test_topics_services:main',
             'aux_topics_services = basic_python_pkg.aux_topics_services:main'
         ],

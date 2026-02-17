@@ -2,6 +2,7 @@ import rclpy
 from rclpy.node import Node
 from std_msgs.msg import String, UInt16MultiArray, Float64, Float64MultiArray, MultiArrayDimension
 from basic_cpp_pkg.msg import Actuators
+from basic_cpp_pkg.srv import TestDelay
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSDurabilityPolicy, QoSHistoryPolicy
 
 
@@ -23,6 +24,11 @@ class CurseNode(Node):
         )
         self.sub_example = self.create_subscription(Actuators, '/actuators', self.actuators_callback, qos_profile)
         
+        self.client = self.create_client(TestDelay, '/test_delay')
+        while not self.client.wait_for_service(timeout_sec=1.0):
+            self.get_logger().info('service not available, waiting again...')
+        self.request = TestDelay.Request()
+
         self.initialize()
     
     def initialize(self):
@@ -34,13 +40,11 @@ class CurseNode(Node):
         id = msg.id
         angles = msg.angles
         self.get_logger().info('%s: %.2f : %.1f : %.3f' % (id, angles[0], angles[1], angles[2]))
-
+        
     def iterate(self):
         data = 'Mensaje '+str(self.i)
         self.get_logger().warn('%s' % data)
         self.i += 1
-
-
 
 def main(args=None):
     rclpy.init(args=args)

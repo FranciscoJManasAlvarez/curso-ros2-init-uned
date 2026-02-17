@@ -1,7 +1,9 @@
 import rclpy
+import time
 from rclpy.node import Node
 from std_msgs.msg import String, UInt16MultiArray, Float64, Float64MultiArray, MultiArrayDimension
 from basic_cpp_pkg.msg import Actuators
+from basic_cpp_pkg.srv import TestDelay
 from rclpy.qos import QoSProfile, QoSReliabilityPolicy, QoSDurabilityPolicy, QoSHistoryPolicy
 
 
@@ -24,6 +26,9 @@ class CurseNode(Node):
         # Subscription
         self.sub_example = self.create_subscription(String, '/topic_py', self.example_callback, 10)
         
+        # Service 
+        self.srv_ = self.create_service(TestDelay, '/test_delay', self.testdelay_callback)
+
         self.initialize()
     
     def initialize(self):
@@ -34,6 +39,13 @@ class CurseNode(Node):
     def example_callback(self, msg):
         data = msg.data
         self.get_logger().info('New msg py: %s' % (data))
+
+    def testdelay_callback(self, request, response):
+        time_now = self.get_clock().now().nanoseconds
+        response.delay = time_now - request.a
+        self.get_logger().info('Incoming request\nDelay: %f' % (response.delay))
+        time.sleep(5)
+        return response
 
     def iterate(self):
         msg = String()

@@ -26,7 +26,8 @@ find_package(urdf REQUIRED)
 
 rosidl_generate_interfaces(${PROJECT_NAME}
   "msg/Actuators.msg"
-  "srv/AddTwoInts.srv"
+  "srv/TestDelay.srv"
+  "srv/AddThreeInts.srv"
 )
 
 #############
