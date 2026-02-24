@@ -1,0 +1,29 @@
+# Demo Launch config file
+Data_Logging: 
+  enable: False
+  all: False
+  name: date
+  topics: /ros2_cpu /actuators /status
+  
+Nodes:
+  node00: 
+    enable: True
+    executable: ejercicioA
+    name: node_a
+    pkg: basic_python_pkg
+    namespace: 'general'
+  
+  node01: 
+    enable: True
+    executable: ejercicioB
+    name: node_b
+    pkg: basic_python_pkg
+    namespace: 'general'
+  
+  node02: 
+    enable: True
+    executable: ejercicioC
+    name: node_c
+    pkg: basic_python_pkg
+    namespace: 'general'
+
