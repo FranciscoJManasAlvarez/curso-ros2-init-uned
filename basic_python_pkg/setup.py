@@ -25,10 +25,14 @@ setup(
     entry_points={
         'console_scripts': [
             'basic_node = basic_python_pkg.basic_node:main',
+            'ejercicioA = basic_python_pkg.ejercicioA:main',
+            'ejercicioB = basic_python_pkg.ejercicioB:main',
+            'ejercicioC = basic_python_pkg.ejercicioC:main',
             'demo_node = basic_python_pkg.demo_node:main',
             'service_server = basic_python_pkg.service_server:main',
             'service_client = basic_python_pkg.service_client:main',
             'test_topics_services = basic_python_pkg.test_topics_services:main',
+            'combined_tf_publisher = basic_python_pkg.combined_tf_publisher:main',
             'aux_topics_services = basic_python_pkg.aux_topics_services:main'
         ],
     },
