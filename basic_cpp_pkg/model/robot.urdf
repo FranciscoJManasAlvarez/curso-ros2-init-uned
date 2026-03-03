@@ -1,0 +1,127 @@
+<?xml version="1.0"?>
+<robot name="my_urdf">
+
+  <material name="yellow">
+    <color rgba="1 1 0 1"/>
+  </material>
+
+  <material name="black">
+    <color rgba="0 0 0 1"/>
+  </material>
+
+  <material name="white">
+    <color rgba="1 1 1 1"/>
+  </material>
+
+  <material name="grey">
+    <color rgba="0.5 0.5 0.5 1"/>
+  </material>
+
+  <link name="base_link">
+    <collision>
+      <geometry>
+        <box size="0.1 0.1 1.34"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.67"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.1 0.1 1.63"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.815"/>
+      <material name="yellow"/>
+    </visual>
+    <visual>
+      <geometry>
+        <box size="0.74 0.1 0.05"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.025"/>
+      <material name="black"/>
+    </visual>
+    <visual>
+      <geometry>
+        <box size="0.74 0.1 0.05"/>
+      </geometry>
+      <origin rpy="0 0 1.57" xyz="0 0 0.025"/>
+      <material name="black"/>
+    </visual>
+  </link>
+
+  <link name="jib">
+    <collision>
+      <geometry>
+        <box size="0.05 0.05 0.90"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.45"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.05 0.05 1.20"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.3"/>
+      <material name="yellow"/>
+    </visual>
+  </link>
+
+  <link name="carro">
+    <collision>
+      <geometry>
+        <box size="0.06 0.06 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <material name="red"/>
+    </visual>
+  </link>
+
+  <link name="load">
+    <collision>
+      <geometry>
+        <box size="0.06 0.06 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    </collision>
+    <visual>
+      <geometry>
+        <box size="0.06 0.06 0.06"/>
+      </geometry>
+      <origin rpy="0 0 0" xyz="0 0 0.0"/>
+      <material name="green"/>
+    </visual>
+  </link>
+
+  <joint name="base_to_jib" type="revolute">
+    <axis xyz="0 1 0"/>
+    <parent link="base_link"/>
+    <child link="jib"/>
+    <!-- DH: d=1.34, a=0, alpha=90º -->
+    <origin rpy="1.5708 0 1.5708" xyz="0 0 1.34"/>
+    <limit effort="765660.0" lower="0" upper="-3.1416" velocity="1.15"/>
+  </joint>
+
+  <joint name="jib_to_carro" type="prismatic">
+    <axis xyz="0 0 -1"/>
+    <parent link="jib"/>
+    <child link="carro"/>
+    <!-- DH: d=1.34, a=0, alpha=90º -->
+    <origin rpy="0 0 0" xyz="0 0 0.1"/>
+    <limit effort="765660.0" lower="0" upper="-0.8" velocity="1.15"/>
+  </joint>
+
+  <joint name="carro_to_load" type="prismatic">
+    <axis xyz="0 1 0"/>
+    <parent link="carro"/>
+    <child link="load"/>
+    <!-- DH: d=1.34, a=0, alpha=90º -->
+    <origin rpy="0 0 0" xyz="0 0 0.0"/>
+    <limit effort="765660.0" lower="0" upper="-1.1" velocity="1.15"/>
+  </joint>
+
+  <!-- ... -->
+
+</robot>
