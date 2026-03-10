@@ -41,6 +41,8 @@ install(
     resources
     rviz
     rqt
+    worlds
+    config
   DESTINATION share/${PROJECT_NAME}
 )
 
@@ -62,5 +64,9 @@ install(TARGETS basic_node demo_node
 
 install(DIRECTORY include/${PROJECT_NAME}/
   DESTINATION include)
+
+  install(DIRECTORY config/
+  DESTINATION share/${PROJECT_NAME}/config
+)
 
 ament_package()
